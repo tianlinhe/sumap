@@ -1,0 +1,8 @@
+__pycache__/
+.vscode/
+build/
+dist/
+examples/
+sumap.egg-info/
+tests/
+venv/
