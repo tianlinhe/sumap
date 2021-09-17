@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 from itertools import islice
+import pickle
 
 import umap
 from sklearn.experimental import enable_halving_search_cv
@@ -377,7 +378,7 @@ class SUMAP_nestedCV(SUMAP):
 
         self.outer_testscores = []
         self.outer_trainscores = []
-        outer_pipelines = []
+        self.outer_pipelines = []
 
         n_outer = 0
         for train_id, test_id in self.outer_cv.split(self.Xtrain, self.ytrain):
@@ -387,7 +388,7 @@ class SUMAP_nestedCV(SUMAP):
 
             self.clf_pipeline.fit(Xtrain, ytrain)
 
-            outer_pipelines.append(self.clf_pipeline)
+            self.outer_pipelines.append(pickle.dumps(self.clf_pipeline))
 
             # measure the model performance (chosen by inner cv) on outer cv
             Xtest_score = self.clf_pipeline.score(Xtest, ytest)
@@ -432,10 +433,9 @@ class SUMAP_nestedCV(SUMAP):
             self.Xtrain, self.ytrain = \
                 self.Xtrain.iloc[train_id], self.ytrain[train_id]
 
-            # Refit the chosen pipeline
-            # A better way?
-            self.clf_pipeline = outer_pipelines[chosen_split]
-            self.clf_pipeline.fit(self.Xtrain, self.ytrain)
+            # chose the model, pickle to avoid refit
+            self.clf_pipeline = pickle.loads(
+                self.outer_pipelines[chosen_split])
 
         except NameError:
             self.Xtrain, self.ytrain = Xtrain, ytrain

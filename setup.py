@@ -11,7 +11,7 @@ with open('LICENSE') as f:
 
 setup(
     name='sumap',
-    version='0.0.0.dev7',
+    version='0.0.0.dev8',
     description='SUMAP: Supervised UMAP',
     long_description=readme,
     # to render md at PyPi

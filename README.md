@@ -43,7 +43,7 @@ Alternatively, `mypipeline` has some attributes as function that allows one to t
 mypipeline.transform(Xtest)
 
 # predict label
-mypipeline.transform(Xtest)
+mypipeline.predict(Xtest)
 
 # score the predicted labels, if true labels were given
 mypipline.score(Xtest, ytest)
@@ -61,5 +61,5 @@ mypipeline.plot_embeddings(Xtest, ytest)
 ```
 
 ## Links:
-* [SUMAP on GitHub: ](https://github.com/tianlinhe/sumap)
-* [UMAP on GitHub: ](https://github.com/lmcinnes/umap)
+* [SUMAP on GitHub](https://github.com/tianlinhe/sumap)
+* [UMAP on GitHub](https://github.com/lmcinnes/umap)
