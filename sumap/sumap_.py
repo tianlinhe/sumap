@@ -26,6 +26,7 @@ class SUMAP:
                  score_func=metrics.f1_score,
                  average='weighted',
                  random_state=None,
+                 n_jobs=-1,
                  **kwargs,
                  ):
         """Define a UMAP-SVM pipeline with tunable UMAP parameters
@@ -88,7 +89,7 @@ class SUMAP:
                                              params_grid_pipeline,
                                              cv=cv,
                                              scoring=scorer,
-                                             n_jobs=-1,  # use all processors
+                                             n_jobs=n_jobs,
                                              )
         elif gridsearch == 'half':
             self.clf_pipeline = \
@@ -96,7 +97,7 @@ class SUMAP:
                                     params_grid_pipeline,
                                     cv=cv,
                                     scoring=scorer,
-                                    n_jobs=-1,
+                                    n_jobs=n_jobs,
                                     min_resources=min_resources,
                                     factor=factor,
                                     random_state=random_state
@@ -310,6 +311,7 @@ class SUMAP_nestedCV(SUMAP):
                  score_func=metrics.f1_score,
                  average='weighted',
                  random_state=None,
+                 n_jobs=-1,
                  **kwargs,
                  ):
         """Define a UMAP-SVM pipeline with tunable UMAP parameters
@@ -339,6 +341,7 @@ class SUMAP_nestedCV(SUMAP):
                          score_func,
                          average,
                          random_state,
+                         n_jobs,
                          **kwargs,
                          )
 
